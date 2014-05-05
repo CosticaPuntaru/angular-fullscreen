@@ -37,10 +37,12 @@
 
       module.directive('fullscreen', ['Fullscreen',  function(Fullscreen) {
          return {
+            scope: {
+                fullscreen: '=?'
+            },
             link : function ($scope, $element, $attrs) {
-               // Watch for changes on scope if model is provided
                if ($attrs.fullscreen) {
-                  $scope.$watch($attrs.fullscreen, function(value) {
+                  $scope.$watch('fullscreen', function(value) {
                      var isEnabled = Fullscreen.isEnabled();
                      if (value && !isEnabled) {
                         Fullscreen.enable($element[0]);
@@ -50,13 +52,11 @@
                         $element.removeClass('isInFullScreen');
                      }
                   });
-                  $element.on('fullscreenchange webkitfullscreenchange mozfullscreenchange', function(){
-                     if(!Fullscreen.isEnabled()){
-                        $scope.$evalAsync(function(){
-                           $scope[$attrs.fullscreen] = false
-                           $element.removeClass('isInFullScreen');
-                        })
-                     }
+                  $element.on('fullscreenchange webkitfullscreenchange mozfullscreenchange', function(){                     
+                     $scope.$apply(function(){
+                        $scope.fullscreen = false
+                        $element.removeClass('isInFullScreen');
+                     })                    
                   })
                } else {
                   $element.on('click', function (ev) {
