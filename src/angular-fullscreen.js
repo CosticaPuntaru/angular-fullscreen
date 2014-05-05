@@ -19,7 +19,6 @@
                }
             },
             cancel: function() {
-
                if(document.cancelFullScreen) {
                   document.cancelFullScreen();
                } else if(document.mozCancelFullScreen) {
@@ -52,7 +51,7 @@
                         $element.removeClass('isInFullScreen');
                      }
                   });
-                  $element.on('fullscreenchange webkitfullscreenchange mozfullscreenchange', function(){
+                  angular.element(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange', function(){
                      if(!Fullscreen.isEnabled()) {
                          $scope.$apply(function () {
                              $scope.fullscreen = false
