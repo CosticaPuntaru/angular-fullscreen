@@ -52,11 +52,13 @@
                         $element.removeClass('isInFullScreen');
                      }
                   });
-                  $element.on('fullscreenchange webkitfullscreenchange mozfullscreenchange', function(){                     
-                     $scope.$apply(function(){
-                        $scope.fullscreen = false
-                        $element.removeClass('isInFullScreen');
-                     })                    
+                  $element.on('fullscreenchange webkitfullscreenchange mozfullscreenchange', function(){
+                     if(!Fullscreen.isEnabled()) {
+                         $scope.$apply(function () {
+                             $scope.fullscreen = false
+                             $element.removeClass('isInFullScreen');
+                         })
+                     }
                   })
                } else {
                   $element.on('click', function (ev) {
