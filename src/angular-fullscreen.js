@@ -54,7 +54,7 @@
                         $element.removeClass('isInFullScreen');
                      }
                   });
-                  angular.element(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange', function(){
+                  angular.element(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange msfullscreenchange', function(){
                      if(!Fullscreen.isEnabled()) {
                         setTimeout(function(){
                            $scope.$apply(function () {
